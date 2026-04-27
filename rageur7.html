@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rageur7 – Liens</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #1e1e2e;
+      --accent: #ff3c3c;
+      --accent2: #ff7b00;
+      --text: #f0f0f5;
+      --muted: #7070a0;
+      --live: #ff3c3c;
+      --twitch: #9146ff;
+      --youtube: #ff0000;
+      --discord: #5865f2;
+      --instagram: #e1306c;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Animated background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,60,60,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,60,60,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridScroll 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gridScroll {
+      from { background-position: 0 0; }
+      to   { background-position: 60px 60px; }
+    }
+
+    /* Glow orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      pointer-events: none;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .orb1 { width: 500px; height: 500px; background: #ff3c3c; top: -100px; left: -150px; animation-delay: 0s; }
+    .orb2 { width: 400px; height: 400px; background: #9146ff; bottom: -80px; right: -100px; animation-delay: -4s; }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%       { transform: translate(30px, 20px) scale(1.05); }
+    }
+
+    /* Header */
+    .header {
+      margin-top: 60px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 38px;
+      color: white;
+      letter-spacing: 1px;
+      border: 3px solid rgba(255,60,60,0.4);
+      box-shadow: 0 0 40px rgba(255,60,60,0.3);
+    }
+
+    /* LIVE badge on avatar */
+    .live-ring {
+      display: none;
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 3px solid var(--live);
+      animation: livePulseRing 1.5s ease-in-out infinite;
+    }
+    .live-dot-avatar {
+      display: none;
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      background: var(--live);
+      border-radius: 50%;
+      border: 3px solid var(--bg);
+      animation: blink 1s ease-in-out infinite;
+    }
+    .is-live .live-ring,
+    .is-live .live-dot-avatar { display: block; }
+
+    @keyframes livePulseRing {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,60,60,0.6); }
+      50%       { box-shadow: 0 0 0 8px rgba(255,60,60,0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .username {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 52px;
+      letter-spacing: 4px;
+      background: linear-gradient(90deg, #ff3c3c, #ff7b00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    /* LIVE Banner */
+    .live-banner {
+      display: none;
+      margin: 24px auto 0;
+      max-width: 380px;
+      width: 90%;
+      background: linear-gradient(90deg, rgba(255,60,60,0.15), rgba(255,60,60,0.05));
+      border: 1px solid rgba(255,60,60,0.4);
+      border-radius: 14px;
+      padding: 14px 22px;
+      align-items: center;
+      gap: 14px;
+      animation: bannerSlide 0.5s ease;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .live-banner:hover {
+      border-color: rgba(255,60,60,0.8);
+      background: linear-gradient(90deg, rgba(255,60,60,0.22), rgba(255,60,60,0.1));
+    }
+    .is-live .live-banner { display: flex; }
+
+    @keyframes bannerSlide {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .live-badge {
+      background: var(--live);
+      color: white;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 4px 9px;
+      border-radius: 6px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      animation: blink 1.2s ease-in-out infinite;
+    }
+
+    .live-text { flex: 1; }
+    .live-text strong { display: block; font-size: 15px; font-weight: 800; color: white; }
+    .live-text span { font-size: 12px; color: var(--muted); }
+
+    .live-arrow {
+      color: var(--live);
+      font-size: 20px;
+    }
+
+    /* Links section */
+    .links {
+      width: 100%;
+      max-width: 480px;
+      padding: 36px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+      margin-bottom: 4px;
+      padding-left: 4px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--card-color, #fff), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .link-card:hover::before { opacity: 0.06; }
+    .link-card:hover {
+      transform: translateX(6px);
+      border-color: var(--card-color, var(--border));
+    }
+    .link-card:active { transform: translateX(3px) scale(0.99); }
+
+    /* Accent stripe */
+    .link-card::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--card-color, var(--border));
+      border-radius: 2px 0 0 2px;
+      transition: width 0.2s;
+    }
+    .link-card:hover::after { width: 5px; }
+
+    .link-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: color-mix(in srgb, var(--card-color, #fff) 15%, transparent);
+    }
+    .link-icon svg, .link-icon img {
+      width: 26px;
+      height: 26px;
+    }
+
+    .link-info { flex: 1; min-width: 0; }
+    .link-name {
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .link-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .link-arrow {
+      color: var(--muted);
+      font-size: 18px;
+      transition: color 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .link-card:hover .link-arrow {
+      color: var(--card-color, white);
+      transform: translateX(3px);
+    }
+
+    /* LIVE indicator on Twitch card */
+    .twitch-live-dot {
+      display: none;
+      width: 8px;
+      height: 8px;
+      background: var(--live);
+      border-radius: 50%;
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      animation: blink 1s ease-in-out infinite;
+    }
+    .is-live .twitch-live-dot { display: block; }
+    .is-live #twitch-card .link-name::after {
+      content: ' 🔴';
+      font-size: 13px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+    footer span { color: var(--accent); }
+
+    /* ── Admin Panel ── */
+    #admin-panel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+    #admin-panel.open { display: flex; }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    .admin-box {
+      background: #13131f;
+      border: 1px solid #2a2a40;
+      border-radius: 24px;
+      padding: 36px 32px 28px;
+      width: 340px;
+      max-width: 90vw;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      position: relative;
+      animation: boxPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes boxPop {
+      from { transform: scale(0.85); opacity:0; }
+      to   { transform: scale(1);    opacity:1; }
+    }
+
+    .admin-close {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none; border: none;
+      color: var(--muted); font-size: 22px;
+      cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+    }
+    .admin-close:hover { color: white; }
+
+    .admin-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 28px;
+      letter-spacing: 3px;
+      color: white;
+      margin-bottom: 6px;
+    }
+    .admin-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* Big live button */
+    .btn-live-big {
+      width: 100%;
+      padding: 18px;
+      border-radius: 16px;
+      border: none;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 22px;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-live-big.off {
+      background: linear-gradient(135deg, #ff3c3c, #cc1111);
+      color: white;
+      box-shadow: 0 8px 30px rgba(255,60,60,0.35);
+    }
+    .btn-live-big.off:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255,60,60,0.5);
+    }
+    .btn-live-big.on {
+      background: linear-gradient(135deg, #222, #1a1a1a);
+      color: var(--muted);
+      box-shadow: none;
+      border: 1px solid #333;
+    }
+    .btn-live-big.on:hover { border-color: #555; color: white; }
+    .btn-live-big::before {
+      content:'';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .btn-live-big:hover::before { opacity: 1; }
+
+    /* Switch row */
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0e0e1a;
+      border: 1px solid #1e1e30;
+      border-radius: 14px;
+      padding: 14px 18px;
+    }
+    .switch-label { font-size: 14px; font-weight: 700; color: white; }
+    .switch-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .toggle-switch {
+      position: relative;
+      width: 54px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+    .toggle-switch input { display: none; }
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      background: #222;
+      border: 1px solid #333;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .toggle-switch input:checked ~ .toggle-track {
+      background: rgba(255,60,60,0.25);
+      border-color: var(--live);
+    }
+    .toggle-thumb {
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: #555;
+      transition: transform 0.3s, background 0.3s;
+      pointer-events: none;
+    }
+    .toggle-switch input:checked ~ .toggle-track .toggle-thumb {
+      transform: translateX(26px);
+      background: var(--live);
+      box-shadow: 0 0 10px rgba(255,60,60,0.6);
+    }
+
+    /* Status dot */
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 20px;
+      font-weight: 600;
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #444;
+      transition: background 0.3s;
+    }
+    .status-dot.live { background: var(--live); animation: blink 1s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <!-- Profile -->
+  <header class="header" id="profile">
+    <div class="avatar-wrapper">
+      <div class="avatar">R7</div>
+      <div class="live-ring"></div>
+      <div class="live-dot-avatar"></div>
+    </div>
+    <h1 class="username">Rageur7</h1>
+    <p class="tagline">Streamer · Créateur de contenu</p>
+
+    <a class="live-banner" href="https://www.twitch.tv/rageur7" target="_blank" rel="noopener">
+      <span class="live-badge">🔴 Live</span>
+      <div class="live-text">
+        <strong>Je suis en stream !</strong>
+        <span>Rejoins-moi sur Twitch maintenant →</span>
+      </div>
+    </a>
+  </header>
+
+  <!-- Links -->
+  <main class="links">
+
+    <p class="section-label">🎮 Stream</p>
+
+    <a id="twitch-card" class="link-card" href="https://www.twitch.tv/rageur7" target="_blank" rel="noopener" style="--card-color: #9146ff">
+      <div class="link-icon">
+        <!-- Twitch logo -->
+        <svg viewBox="0 0 24 24" fill="#9146ff" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-name">Twitch</div>
+        <div class="link-sub">twitch.tv/rageur7</div>
+      </div>
+      <div class="twitch-live-dot"></div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <p class="section-label">📺 YouTube</p>
+
+    <a class="link-card" href="https://www.youtube.com/@Rageur7" target="_blank" rel="noopener" style="--card-color: #ff0000">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="#ff0000" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-name">YouTube Principal</div>
+        <div class="link-sub">@Rageur7</div>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a class="link-card" href="https://www.youtube.com/@Rageur7rediffusion" target="_blank" rel="noopener" style="--card-color: #cc0000">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="#cc0000" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-name">YouTube Rediffusions</div>
+        <div class="link-sub">@Rageur7rediffusion</div>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a class="link-card" href="https://www.youtube.com/@Rageur7pol" target="_blank" rel="noopener" style="--card-color: #ff4444">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="#ff4444" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-name">YouTube Pol</div>
+        <div class="link-sub">@Rageur7pol</div>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a class="link-card" href="https://www.youtube.com/@Core-Tech-i4h" target="_blank" rel="noopener" style="--card-color: #00b4d8">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="#00b4d8" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-name">Core Tech</div>
+        <div class="link-sub">@Core-Tech-i4h</div>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <p class="section-label">💬 Communauté</p>
+
+    <a class="link-card" href="https://discord.com/invite/b8VFSTg2CB" target="_blank" rel="noopener" style="--card-color: #5865f2">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="#5865f2" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.04.033.053a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-name">Discord</div>
+        <div class="link-sub">Rejoins le serveur !</div>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a class="link-card" href="https://www.instagram.com/rageur7_off/" target="_blank" rel="noopener" style="--card-color: #e1306c">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="url(#igGrad)" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#f09433"/>
+              <stop offset="25%" style="stop-color:#e6683c"/>
+              <stop offset="50%" style="stop-color:#dc2743"/>
+              <stop offset="75%" style="stop-color:#cc2366"/>
+              <stop offset="100%" style="stop-color:#bc1888"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-name">Instagram</div>
+        <div class="link-sub">@rageur7_off</div>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+  </main>
+
+  <footer>
+    Fait avec <span>❤</span> pour Rageur7
+  </footer>
+
+
+  <script>
+    // ─────────────────────────────────────────────────────────────────────
+
+    // Fonction pour vérifier si Rageur7 est en live sur Twitch
+    function checkTwitchLive() {
+      fetch('https://decapi.me/twitch/uptime/rageur7')
+        .then(response => response.text())
+        .then(data => {
+          const isLive = !data.includes('not live') && !data.includes('User is not live');
+          document.body.classList.toggle('is-live', isLive);
+        })
+        .catch(error => console.error('Erreur lors de la vérification du statut live:', error));
+    }
+
+    // Vérifier au chargement de la page
+    checkTwitchLive();
+
+    // Vérifier toutes les 60 secondes
+    setInterval(checkTwitchLive, 60000);
+
+    // ── Admin Panel ──
+
+    // Ouvrir le panneau admin (par exemple, en cliquant sur l'avatar)
+    document.querySelector('.avatar-wrapper').addEventListener('dblclick', () => {
+      document.getElementById('admin-panel').classList.add('open');
+    });
+
+    // Fermer le panneau admin
+    document.querySelector('.admin-close').addEventListener('click', () => {
+      document.getElementById('admin-panel').classList.remove('open');
+    });
+
+    // Bouton pour basculer le statut live manuellement
+    document.querySelector('.btn-live-big').addEventListener('click', () => {
+      const body = document.body;
+      const btn = document.querySelector('.btn-live-big');
+      if (body.classList.contains('is-live')) {
+        body.classList.remove('is-live');
+        btn.classList.remove('on');
+        btn.classList.add('off');
+        btn.textContent = 'SET LIVE ON';
+      } else {
+        body.classList.add('is-live');
+        btn.classList.remove('off');
+        btn.classList.add('on');
+        btn.textContent = 'SET LIVE OFF';
+      }
+    });
+
+    // Initialiser le bouton
+    const btn = document.querySelector('.btn-live-big');
+    if (document.body.classList.contains('is-live')) {
+      btn.classList.add('on');
+      btn.textContent = 'SET LIVE OFF';
+    } else {
+      btn.classList.add('off');
+      btn.textContent = 'SET LIVE ON';
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+  </script>
+</body>
+</html>
